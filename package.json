@@ -1,0 +1,18 @@
+{
+  "name": "ags-desktop-shell",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "types": "bash scripts/types.sh",
+    "dev": "bash scripts/dev.sh",
+    "start": "ags run app.tsx"
+  },
+  "dependencies": {
+    "@danoaky/js-utils": "0.31.1",
+    "iteragain": "4.1.6"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.21",
+    "typescript": "^5"
+  }
+}
