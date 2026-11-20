@@ -47,7 +47,7 @@ export default function Bar({ monitor }: BarProps) {
           </HorizontalRevealer>
           <Workspaces />
           {/* <MoveMouse /> */}
-          <Coffee />  
+          <Coffee />
           <AppsButton />
           <PasswordSearchButton />
           {/* <Media /> */}

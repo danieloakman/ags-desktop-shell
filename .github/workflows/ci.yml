@@ -19,3 +19,23 @@ jobs:
 
       - name: Flake check
         run: nix flake check -L
+
+      - name: Format (nix)
+        run: |
+          nix fmt flake.nix nix/package.nix nix/home-manager.nix
+          git diff --exit-code
+
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Format (prettier)
+        run: bun run format:check

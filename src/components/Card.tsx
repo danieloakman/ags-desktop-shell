@@ -10,7 +10,11 @@ export type CardProps = Omit<JSX.IntrinsicElements['box'], 'cssClasses'> & {
 export default function Card({ cssClasses = [], children, spacing = 4, ...props }: CardProps) {
   const _cssClasses = toAccessor(cssClasses);
   return (
-    <box {...props} spacing={spacing} cssClasses={_cssClasses.as((c) => classes('border', 'p-sm', 'rounded', ...c))}>
+    <box
+      {...props}
+      spacing={spacing}
+      cssClasses={_cssClasses.as((c) => classes('border', 'p-sm', 'rounded', ...c))}
+    >
       {children}
     </box>
   );

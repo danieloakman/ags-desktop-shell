@@ -31,9 +31,7 @@ export default function ControlCenter() {
         orientation={Gtk.Orientation.VERTICAL}
         spacing={12}
       >
-        <centerbox
-          orientation={Gtk.Orientation.HORIZONTAL}
-        >
+        <centerbox orientation={Gtk.Orientation.HORIZONTAL}>
           <box $type="start" spacing={8} valign={Gtk.Align.CENTER}>
             <Uptime />
             <BatteryInfo showPercentage />

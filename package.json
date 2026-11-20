@@ -2,10 +2,40 @@
   "name": "ags-desktop-shell",
   "private": true,
   "version": "0.1.0",
+  "description": "TypeScript/GTK4 desktop shell for Hyprland, built on AGS/Astal",
+  "license": "MIT",
+  "author": "Daniel Brown <https://danoaky.dev>",
+  "homepage": "https://github.com/danieloakman/ags-desktop-shell#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danieloakman/ags-desktop-shell.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danieloakman/ags-desktop-shell/issues"
+  },
+  "keywords": [
+    "ags",
+    "astal",
+    "hyprland",
+    "gtk4",
+    "wayland",
+    "nix",
+    "typescript",
+    "desktop-shell"
+  ],
+  "engines": {
+    "bun": ">=1.1.0"
+  },
   "scripts": {
     "types": "bash scripts/types.sh",
     "dev": "bash scripts/dev.sh",
-    "start": "ags run app.tsx"
+    "start": "ags run app.tsx",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "check": "bun run format:check && bun run typecheck",
+    "changelog": "bunx changie new",
+    "release": "bash scripts/release.sh"
   },
   "dependencies": {
     "@danoaky/js-utils": "0.31.1",
@@ -13,6 +43,8 @@
   },
   "devDependencies": {
     "@types/bun": "^1.2.21",
+    "changie": "^1.22.1",
+    "prettier": "^3.6.2",
     "typescript": "^5"
   }
 }

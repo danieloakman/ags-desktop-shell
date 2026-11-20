@@ -1,0 +1,9 @@
+node_modules
+@girs
+result
+result-*
+bun.lock
+flake.lock
+CHANGELOG.md
+.changes
+assets

@@ -40,7 +40,7 @@ export const hasBattery = createExternal(false, (set) => {
 export const powerMode = createPoll('', POWER_MODE_INTERVAL, 'tlp-stat -s').as(
   (res): PowerMode | null => {
     const mode = res.match(POWER_MODE_REGEX)?.[0].split('=')[1]?.trim();
-    return mode ? (POWER_MODE_MAP[mode] as PowerMode) ?? null : null;
+    return mode ? ((POWER_MODE_MAP[mode] as PowerMode) ?? null) : null;
   },
 );
 

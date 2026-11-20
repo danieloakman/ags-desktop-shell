@@ -40,10 +40,7 @@ export default function Volume() {
   const [open, { toggle: toggleOpen }] = createBooleanState(false);
 
   return (
-    <Card
-      name="Volume"
-      orientation={Gtk.Orientation.VERTICAL}
-    >
+    <Card name="Volume" orientation={Gtk.Orientation.VERTICAL}>
       <box spacing={4} valign={Gtk.Align.CENTER}>
         <button cssClasses={classes('btn-ghost', 'rounded-full')} onClicked={toggleMute}>
           <VolumeIndicator />

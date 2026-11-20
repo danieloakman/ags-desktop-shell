@@ -3,6 +3,10 @@ node_modules/
 result
 result-*
 .direnv/
-.envrc
 *.log
 .DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.tsbuildinfo
+.eslintcache

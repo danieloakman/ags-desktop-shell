@@ -22,4 +22,3 @@ for (const [match] of exec(`cat ${THEME_PATH}`).matchAll(/@define-color.+;/g)) {
   if (!color || !name) continue;
   Theme[RENAME_MAP[name] ?? name] = color;
 }
-

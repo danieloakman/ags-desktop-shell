@@ -66,6 +66,9 @@
           packages = [
             pkgs.bun
             pkgs.typescript
+            pkgs.entr
+            pkgs.changie
+            pkgs.nixfmt
             (ags.packages.${system}.default.override {
               extraPackages = astalExtra;
             })
@@ -85,7 +88,8 @@
             })
           ];
           config.programs.ags-desktop-shell.package =
-            lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.default;
+            lib.mkDefault
+              self.packages.${pkgs.stdenv.hostPlatform.system}.default;
         };
     };
 }

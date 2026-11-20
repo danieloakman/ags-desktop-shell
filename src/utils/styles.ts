@@ -28,5 +28,6 @@ export type StyleClass = (typeof STYLE_CLASSES)[number];
   });
 }
 
-export const classes = (...classes: (StyleClass | boolean | null | undefined | (string & {}))[]): string[] =>
-  classes.filter(Boolean) as string[];
+export const classes = (
+  ...classes: (StyleClass | boolean | null | undefined | (string & {}))[]
+): string[] => classes.filter(Boolean) as string[];
