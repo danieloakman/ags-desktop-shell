@@ -6,10 +6,15 @@
   makeWrapper,
   runCommand,
   ags,
+  # Astal libs (and friends) so the wrapped `ags` gets GI_TYPELIB_PATH via
+  # aylur's `ags.override { extraPackages = ... }` (wrapGAppsHook3).
+  extraPackages ? [ ],
 }:
 let
   pname = "ags-desktop-shell";
   version = "0.1.0";
+
+  agsWithAstal = ags.override { inherit extraPackages; };
 
   src = lib.cleanSourceWith {
     src = ./..;
@@ -93,7 +98,7 @@ stdenvNoCC.mkDerivation {
     cp -R . "$share"/
     cp -R ${bunDeps}/node_modules "$share"/node_modules
 
-    makeWrapper ${lib.getExe ags} $out/bin/${pname} \
+    makeWrapper ${lib.getExe agsWithAstal} $out/bin/${pname} \
       --chdir "$share" \
       --add-flags "run app.tsx"
 

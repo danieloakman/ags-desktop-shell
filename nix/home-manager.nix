@@ -14,6 +14,7 @@ let
   cfg = config.programs.ags-desktop-shell;
   system = pkgs.stdenv.hostPlatform.system;
 
+  # Flake package already wraps aylur `ags` with Astal extraPackages (GI path).
   wrapped = pkgs.symlinkJoin {
     name = "${cfg.package.pname or "ags-desktop-shell"}-wrapped";
     paths = [ cfg.package ];

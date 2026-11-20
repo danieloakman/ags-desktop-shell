@@ -34,8 +34,19 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        astalExtra = with astal.packages.${system}; [
+          hyprland
+          wireplumber
+          network
+          notifd
+          mpris
+          apps
+          tray
+          cava
+        ];
         package = pkgs.callPackage ./nix/package.nix {
           ags = ags.packages.${system}.default;
+          extraPackages = astalExtra;
         };
       in
       {
@@ -56,16 +67,7 @@
             pkgs.bun
             pkgs.typescript
             (ags.packages.${system}.default.override {
-              extraPackages = with astal.packages.${system}; [
-                hyprland
-                wireplumber
-                network
-                notifd
-                mpris
-                apps
-                tray
-                cava
-              ];
+              extraPackages = astalExtra;
             })
           ];
         };
