@@ -1,6 +1,6 @@
 import { createBinding, createComputed, For, With } from 'ags';
 import { classes } from '../utils/styles';
-import { workspaces, focusedWorkspace, focusedClient } from '../utils/hyprland';
+import { workspaces, focusedWorkspace, focusedClient, focusWorkspace } from '../utils/hyprland';
 import NativeIcon, { lookupNativeIcon } from '@/components/NativeIcon';
 import { Gtk } from 'ags/gtk4';
 
@@ -26,7 +26,7 @@ export default function Workspaces() {
                 // @ts-ignore Ignore for now
                 ...(selected ? ['bg-fg-color', 'color-bg-color'] : ['bg-transparent']),
               )}
-              onClicked={() => workspace.focus()}
+              onClicked={() => focusWorkspace(workspace.get_id())}
             >
               <box spacing={4} halign={Gtk.Align.CENTER}>
                 <label label={name} />

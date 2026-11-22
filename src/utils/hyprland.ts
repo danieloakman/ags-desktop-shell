@@ -70,3 +70,9 @@ export const moveCursorRelative = (x: number, y: number) => {
     console.log('Error in moveCursor:', err);
   }
 };
+
+/** Focus a workspace via Hyprland's Lua dispatcher (legacy `workspace N` no longer works). */
+export const focusWorkspace = (id: number) => {
+  // Second arg must be `''` — Astal joins dispatcher + args with a space.
+  hyprland.dispatch(`hl.dsp.focus({ workspace = ${id} })`, '');
+};
