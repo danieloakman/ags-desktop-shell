@@ -3,7 +3,7 @@ import { Gtk } from 'ags/gtk4';
 import Icon from '../components/Icon';
 import { clamp } from '@/js-utils';
 import { Vr } from '../components/Separators';
-import { classes } from '../utils/styles';
+import { classes, SPACING } from '../utils/styles';
 import { execAsync } from 'ags/process';
 import { raise } from '@/js-utils';
 
@@ -11,14 +11,14 @@ export default function OSMonitoring() {
   return (
     <button
       name="os-monitoring"
-      cssClasses={classes('rounded-full')}
+      cssClasses={classes('rounded-full', 'bg-selected')}
       onClicked={() =>
         execAsync('kitty --title "btop" --hold -e "btop"').catch((err) =>
           console.error('Failed to open btop', err),
         )
       }
     >
-      <box spacing={8}>
+      <box spacing={SPACING}>
         <Cpu />
         <Vr />
         <Memory />
@@ -61,7 +61,7 @@ export const cpuUsage = createPoll('', 1000, 'cat /proc/stat').as((str) => {
 export function Cpu() {
   const label = cpuUsage.as((stats) => `${stats}`);
   return (
-    <box spacing={4} halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
+    <box spacing={SPACING} halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
       <Icon name="cpu" size={18} />
       <label label={label} widthChars={2} />
     </box>
@@ -82,7 +82,7 @@ export const memoryUsage = createPoll('', 1000, 'free').as((str) => {
 
 export function Memory() {
   return (
-    <box spacing={2}>
+    <box spacing={SPACING}>
       <Icon name="memory-stick" />
       <label label={memoryUsage((n) => n.toString())} widthChars={2} />
     </box>
@@ -157,7 +157,7 @@ export function DownloadSpeed() {
     return Math.round(speed).toString();
   });
   return (
-    <box spacing={2}>
+    <box spacing={SPACING}>
       <Icon name="download" />
       <label label={label} widthChars={3} />
     </box>
@@ -170,7 +170,7 @@ export function UploadSpeed() {
     return Math.round(speed).toString();
   });
   return (
-    <box spacing={2}>
+    <box spacing={SPACING}>
       <Icon name="upload" />
       <label label={label} widthChars={3} />
     </box>

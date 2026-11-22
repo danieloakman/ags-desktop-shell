@@ -5,7 +5,7 @@ import { createExternalState } from '../utils/ags';
 import Icon from '../components/Icon';
 import Card from '@/components/Card';
 import { Gtk } from 'ags/gtk4';
-import { classes } from '@/utils/styles';
+import { classes, SPACING } from '@/utils/styles';
 
 export const maxBrightness = createExternal(900, (set) => {
   execAsync('brightnessctl max').then((stdout) => {
@@ -48,7 +48,7 @@ export default function Brightness() {
       visible={canControlBrightness}
       hexpand
       orientation={Gtk.Orientation.HORIZONTAL}
-      spacing={4}
+      spacing={SPACING}
     >
       <button
         cssClasses={classes('btn-ghost', 'rounded-full')}

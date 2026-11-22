@@ -25,7 +25,7 @@ export default function MoveMouse() {
   return (
     <box name="MoveMouse">
       <button
-        cssClasses={enabled((v) => classes('rounded', v && 'bg-fg-color'))}
+        cssClasses={enabled((v) => classes('rounded-full', v && 'bg-fg-color'))}
         onClicked={toggleEnabled}
       >
         <Icon name="mouse-pointer" color={enabled((v) => (v ? Theme.bgColor : Theme.fgColor))} />

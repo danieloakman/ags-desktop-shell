@@ -124,7 +124,7 @@ function Notification({
       `}
     >
       <centerbox valign={Gtk.Align.CENTER} hexpand widthRequest={width}>
-        <box $type="start" spacing={6}>
+        <box $type="start" spacing={4}>
           <Icon name="bell" />
 
           <box spacing={4} orientation={Gtk.Orientation.VERTICAL} valign={Gtk.Align.CENTER}>

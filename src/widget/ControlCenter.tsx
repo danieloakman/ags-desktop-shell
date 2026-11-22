@@ -6,9 +6,8 @@ import Bluetooth, { BluetoothConnection } from './Bluetooth';
 import { toggleWindow, WINDOW_NAME } from '../utils/window';
 import Modal from '../components/Modal';
 import Uptime from './Uptime';
-import { classes } from '../utils/styles';
+import { classes, SPACING } from '../utils/styles';
 import { Hr } from '@/components/Separators';
-import TrayApps from './TrayApps';
 import Swaync from './Swaync';
 import Brightness from './Brightness';
 import { BatteryInfo } from './Battery';
@@ -32,11 +31,11 @@ export default function ControlCenter() {
         spacing={12}
       >
         <centerbox orientation={Gtk.Orientation.HORIZONTAL}>
-          <box $type="start" spacing={8} valign={Gtk.Align.CENTER}>
+          <box $type="start" spacing={SPACING} valign={Gtk.Align.CENTER}>
             <Uptime />
             <BatteryInfo showPercentage />
           </box>
-          <box $type="end" spacing={4} valign={Gtk.Align.CENTER}>
+          <box $type="end" spacing={SPACING} valign={Gtk.Align.CENTER}>
             <Suspend />
             <Restart />
             <Shutdown />
@@ -58,14 +57,13 @@ export default function ControlCenter() {
 export function ControlCenterButton() {
   return (
     <box cssClasses={classes('rounded-full', 'bg-selected')}>
-      <TrayApps />
-      <Swaync cssClasses={['btn-ghost-on-bg']} />
+      <Swaync cssClasses={['rounded-full', 'btn-ghost-on-bg']} />
 
       <button
         cssClasses={classes('rounded-full', 'btn-ghost-on-bg')}
         onClicked={() => toggleWindow('control-center')}
       >
-        <box spacing={6}>
+        <box spacing={SPACING}>
           <VolumeIndicator />
           <BluetoothConnection />
           <InternetConnection />

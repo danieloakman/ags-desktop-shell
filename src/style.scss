@@ -15,9 +15,9 @@ $font-size: 14px;
   font-size: $font-size;
 }
 
+// Alias of bg-selected; prefer bg-selected + color-* utilities.
 .selected {
   background-color: $selected-bg-color;
-  color: $bg-color;
 }
 
 .btn-ghost {
@@ -49,12 +49,15 @@ $font-size: 14px;
   border-radius: $rounded-full;
 }
 .rounded-l {
+  border-top-left-radius: $rounded;
+  border-bottom-left-radius: $rounded;
+}
+.rounded-r {
   border-top-right-radius: $rounded;
   border-bottom-right-radius: $rounded;
 }
-.rounded-r {
-  border-top-left-radius: $rounded;
-  border-bottom-left-radius: $rounded;
+.border-b {
+  border-bottom: 1px solid $border-color;
 }
 .rounded-t {
   border-top-left-radius: $rounded;

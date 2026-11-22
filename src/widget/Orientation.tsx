@@ -1,6 +1,6 @@
 import { execAsync } from 'ags/process';
 import Icon from '../components/Icon';
-import { classes } from '../utils/styles';
+import { classes, SPACING } from '../utils/styles';
 import { Vr } from '../components/Separators';
 import { devices, hasTouchDevice, monitors } from '../utils/hyprland';
 import { noop } from '@/js-utils';
@@ -56,12 +56,12 @@ export default function Orientation() {
     <box
       name="orientation"
       visible={visible}
-      spacing={4}
-      cssClasses={classes('selected', 'rounded-full')}
+      spacing={SPACING}
+      cssClasses={classes('rounded-full', 'bg-selected', 'color-fg-color')}
     >
       <button
         onClicked={() => rotateOrientation('cw')}
-        cssClasses={classes('rounded-full', 'btn-ghost')}
+        cssClasses={classes('rounded-full', 'btn-ghost-on-bg')}
       >
         <Icon name="rotate-ccw" />
       </button>
@@ -70,7 +70,7 @@ export default function Orientation() {
 
       <button
         onClicked={() => rotateOrientation('ccw')}
-        cssClasses={classes('rounded-full', 'btn-ghost')}
+        cssClasses={classes('rounded-full', 'btn-ghost-on-bg')}
       >
         <Icon name="rotate-cw" />
       </button>

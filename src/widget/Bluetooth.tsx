@@ -49,7 +49,7 @@ export default function Bluetooth() {
           {([status, devices]) => {
             const name = devices[0]?.name;
             return (
-              <box spacing={1}>
+              <box spacing={4}>
                 {/* TODO: add more icon states for discovering, discoverable, pairing, etc */}
                 {status.powered ? <Icon name="bluetooth" /> : <Icon name="bluetooth-off" />}
                 {name && <label label={name} />}

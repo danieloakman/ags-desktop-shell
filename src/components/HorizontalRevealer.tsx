@@ -2,7 +2,7 @@ import { createBooleanState } from '@/utils/ags';
 import { Accessor, Node } from 'ags';
 import { Gtk } from 'ags/gtk4';
 import Icon from './Icon';
-import { classes } from '@/utils/styles';
+import { classes, SPACING } from '@/utils/styles';
 
 export interface HorizontalRevealerProps {
   children?: Node | Node[];
@@ -13,7 +13,7 @@ export interface HorizontalRevealerProps {
 
 export default function HorizontalRevealer({
   children,
-  spacing = 4,
+  spacing = SPACING,
   initialRevealed = false,
   visible,
 }: HorizontalRevealerProps) {
@@ -21,7 +21,7 @@ export default function HorizontalRevealer({
 
   return (
     <box name="HorizontalRevealer" spacing={spacing} visible={visible}>
-      <button onClicked={toggleRevealed} cssClasses={classes('rounded')}>
+      <button onClicked={toggleRevealed} cssClasses={classes('rounded-full')}>
         <Icon name={revealed((v) => (v ? 'chevron-right' : 'chevron-left'))} />
       </button>
 
