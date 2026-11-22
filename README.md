@@ -45,7 +45,10 @@ nix develop            # bun, ags, entr, changie, formatters
 
 ```nix
 {
-  inputs.ags-desktop-shell.url = "github:danieloakman/ags-desktop-shell";
+  inputs.ags-desktop-shell = {
+    url = "github:danieloakman/ags-desktop-shell";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   imports = [ inputs.ags-desktop-shell.homeManagerModules.default ];
 
@@ -83,11 +86,14 @@ With [direnv](https://direnv.net/) installed, `cd` into the repo loads the flake
 nix develop            # bun, ags, entr, changie, nixfmt
 bun install
 bun run types          # generate @girs (needs `ags` on PATH)
+ags quit               # stop the packaged shell if Hyprland already started it
 bun run start
 bun run dev            # reload on .tsx/.scss changes (needs `entr`)
 bun run format:check
 bun run typecheck      # after `bun run types`
 ```
+
+`flake.nix` pins `nixpkgs` to the NixOS revision this shell is developed against so GTK/Pango match the host (and nix-ld). Bump that pin when you update the machine; after changing `flake.lock`, run `direnv reload` (or `rm -rf .direnv`) so the DevShell picks up the new `ags`.
 
 ## Versioning & changelog
 
