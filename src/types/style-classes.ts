@@ -1,3 +1,4 @@
+/** Utility classes defined in `src/style.scss`. Keep in sync when adding utilities. */
 export const STYLE_CLASSES = [
   'selected',
   'btn-ghost',

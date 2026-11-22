@@ -3,10 +3,8 @@ import style from './src/style.scss';
 import Bar from './src/widget/Bar';
 import ControlCenter from './src/widget/ControlCenter';
 import PasswordSearch from './src/widget/PasswordSearch';
-import { NativeIconProvider } from './src/components/NativeIcon';
 import { toggleWindow, WindowName } from './src/utils/window';
 import AppsModal from './src/widget/Apps';
-import { loadStyles } from './src/utils/styles';
 import { createBinding, Fragment } from 'ags';
 import { raise } from '@/js-utils';
 
@@ -40,7 +38,6 @@ app.start({
     }
   },
   main() {
-    loadStyles();
     const monitors = createBinding(app, 'monitors').as((m) =>
       m.sort((a, b) => b.get_geometry().width - a.get_geometry().width),
     );
@@ -52,7 +49,6 @@ app.start({
         <ControlCenter />
         <PasswordSearch />
         <AppsModal />
-        <NativeIconProvider />
         {/* <NotificationPopups /> */}
       </Fragment>
     );

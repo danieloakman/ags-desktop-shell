@@ -1,10 +1,7 @@
-import { Accessor, createBinding, createComputed, For, With } from 'ags';
+import { createBinding, createComputed, For, With } from 'ags';
 import { classes } from '../utils/styles';
 import { workspaces, focusedWorkspace, focusedClient } from '../utils/hyprland';
-import NativeIcon, {
-  lookupNativeIcon,
-  NativeIcon as NativeIconType,
-} from '@/components/NativeIcon';
+import NativeIcon, { lookupNativeIcon } from '@/components/NativeIcon';
 import { Gtk } from 'ags/gtk4';
 
 export default function Workspaces() {
@@ -34,13 +31,15 @@ export default function Workspaces() {
               <box spacing={4} halign={Gtk.Align.CENTER}>
                 <label label={name} />
                 <For
-                  each={
-                    clients.as((arr) =>
-                      Array.from(
-                        new Set(arr.map((c) => lookupNativeIcon(c.get_class())).filter(Boolean)),
+                  each={clients.as((arr) =>
+                    Array.from(
+                      new Set(
+                        arr
+                          .map((c) => lookupNativeIcon(c.get_class()))
+                          .filter((icon): icon is string => Boolean(icon)),
                       ),
-                    ) as Accessor<NativeIconType[]>
-                  }
+                    ),
+                  )}
                 >
                   {(c) => <NativeIcon name={c} />}
                 </For>

@@ -1,30 +1,22 @@
-import { writeFileAsync } from 'ags/file';
-import { Gtk } from 'ags/gtk4';
-import { NATIVE_ICONS, NativeIcon } from '../types/icons';
 import { Accessor } from 'ags';
-import { DEV } from '@/utils/env';
+import { Gdk, Gtk } from 'ags/gtk4';
 
-export type { NativeIcon };
+/** GTK icon-theme name (resolved at runtime; not a committed catalog). */
+export type NativeIcon = string;
 
-/** Generates the `types/icons.ts` file */
-export function NativeIconProvider() {
-  return (
-    <Gtk.IconTheme
-      $={async (self) => {
-        await writeFileAsync(
-          './src/types/icons.ts',
-          `
-export const NATIVE_ICONS = ${JSON.stringify(self.get_icon_names().sort(), null, 2)} as const;
+function iconTheme(): Gtk.IconTheme | null {
+  const display = Gdk.Display.get_default();
+  if (!display) return null;
+  return Gtk.IconTheme.get_for_display(display);
+}
 
-export type NativeIcon = (typeof NATIVE_ICONS)[number];
-`.trim(),
-        ).catch((err) => {
-          if (!DEV) return;
-          console.error('Failed to load icons', err);
-        });
-      }}
-    />
-  );
+let cachedNames: string[] | null = null;
+
+function iconNames(): string[] {
+  if (cachedNames) return cachedNames;
+  const theme = iconTheme();
+  cachedNames = theme ? [...theme.get_icon_names()].sort() : [];
+  return cachedNames;
 }
 
 export interface NativeIconProps {
@@ -36,10 +28,13 @@ export default function NativeIcon({ name, size = 18 }: NativeIconProps) {
   return <image iconName={name} pixelSize={size} />;
 }
 
+/** Resolve a window class / hint to a theme icon name, if one exists. */
 export function lookupNativeIcon(name: string): NativeIcon | undefined {
-  if (NATIVE_ICONS.includes(name as NativeIcon)) return name as NativeIcon;
-  return NATIVE_ICONS.find(
-    (i) =>
-      i.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(i.toLowerCase()),
+  const theme = iconTheme();
+  if (!theme) return undefined;
+  if (theme.has_icon(name)) return name;
+  const lower = name.toLowerCase();
+  return iconNames().find(
+    (i) => i.toLowerCase().includes(lower) || lower.includes(i.toLowerCase()),
   );
 }

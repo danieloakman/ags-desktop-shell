@@ -3,7 +3,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-TMP_AGS_DIR="$(mktemp -d /tmp/ags-desktop-shell-types.XXXXXX)"
+# `ags init -d` creates the directory; mktemp -u only reserves a name.
+TMP_AGS_DIR="$(mktemp -u /tmp/ags-desktop-shell-types.XXXXXX)"
 
 cleanup() {
   rm -rf "$TMP_AGS_DIR"

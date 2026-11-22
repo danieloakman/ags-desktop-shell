@@ -1,4 +1,3 @@
-import { NativeIcon } from '@/types/icons';
 import { createState } from 'ags';
 import { execAsync, createSubprocess } from 'ags/process';
 import { safeJSONParse } from '@/js-utils';
@@ -54,7 +53,7 @@ export function clearNotifications() {
 export interface NotifyOptions<ActionKey extends string> {
   summary: string;
   body?: string;
-  icon?: NativeIcon | ({} & string);
+  icon?: string;
   actions?: Record<ActionKey, string>;
   expire?: number;
   urgency?: 'low' | 'normal' | 'critical';
