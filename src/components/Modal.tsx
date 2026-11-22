@@ -78,12 +78,13 @@ export default function Modal({
       <Gtk.EventControllerKey
         onKeyPressed={({ widget }, keyval: number) => {
           if (keyval === Gdk.KEY_Escape) {
-            widget.hide();
+            widget?.hide();
           }
         }}
       />
       <Gtk.GestureClick
         onPressed={({ widget }, _, x, y) => {
+          if (!widget) return;
           const [, rect] = children.compute_bounds(widget);
           const position = new Graphene.Point({ x, y });
 

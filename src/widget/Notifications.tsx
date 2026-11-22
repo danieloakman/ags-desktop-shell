@@ -9,7 +9,7 @@ import app from 'ags/gtk4/app';
 import Pango from 'gi://Pango';
 import Notifd from 'gi://AstalNotifd';
 import { StyleClass } from '@/types/style-classes';
-import { clamp } from '@/utils/number';
+import { clamp } from '@/js-utils';
 
 const { TOP } = Astal.WindowAnchor;
 
@@ -130,14 +130,14 @@ function Notification({
           <box spacing={4} orientation={Gtk.Orientation.VERTICAL} valign={Gtk.Align.CENTER}>
             <label
               lines={1}
-              label={appName}
+              label={appName.as((v) => v ?? '')}
               ellipsize={Pango.EllipsizeMode.END}
               halign={Gtk.Align.START}
               cssClasses={classes('opacity-70')}
             />
             <label
               lines={1}
-              label={summary}
+              label={summary.as((v) => v ?? '')}
               ellipsize={Pango.EllipsizeMode.END}
               halign={Gtk.Align.START}
               cssClasses={classes('font-size-lg')}
@@ -146,7 +146,7 @@ function Notification({
             <label
               visible={body((v) => !!v)}
               lines={1}
-              label={body}
+              label={body.as((v) => v ?? '')}
               ellipsize={Pango.EllipsizeMode.END}
               halign={Gtk.Align.START}
               cssClasses={classes('opacity-70')}

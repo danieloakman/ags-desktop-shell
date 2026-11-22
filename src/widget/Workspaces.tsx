@@ -41,7 +41,7 @@ export default function Workspaces() {
                     ),
                   )}
                 >
-                  {(c) => <NativeIcon name={c} />}
+                  {(c: string) => <NativeIcon name={c} />}
                 </For>
               </box>
             </button>

@@ -16,5 +16,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["app.tsx", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["app.tsx", "src/**/*.ts", "src/**/*.tsx", "@girs/**/*.d.ts"]
 }

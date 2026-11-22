@@ -14,7 +14,7 @@ const volume = createBinding(wp.get_audio().get_default_speaker(), 'volume');
 const volumeLabel = volume((v) => `${clamp(Math.round(v * 100), 0, 100)}%`);
 const muted = createBinding(wp.get_audio().get_default_speaker(), 'mute');
 const speakers = createBinding(wp.get_audio(), 'speakers').as((arr) =>
-  arr.sort((a, b) =>
+  (arr ?? []).sort((a, b) =>
     (a.get_device()?.get_description() ?? '').localeCompare(
       b.get_device()?.get_description() ?? '',
     ),

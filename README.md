@@ -90,7 +90,8 @@ ags quit               # stop the packaged shell if Hyprland already started it
 bun run start
 bun run dev            # reload on .tsx/.scss changes (needs `entr`)
 bun run format:check
-bun run typecheck      # after `bun run types`
+bun run typecheck      # after `bun run types` (fails on src/ / app.tsx only)
+bun run check          # format:check + typecheck
 ```
 
 `flake.nix` pins `nixpkgs` to the NixOS revision this shell is developed against so GTK/Pango match the host (and nix-ld). Bump that pin when you update the machine; after changing `flake.lock`, run `direnv reload` (or `rm -rf .direnv`) so the DevShell picks up the new `ags`.

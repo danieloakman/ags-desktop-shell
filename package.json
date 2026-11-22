@@ -32,9 +32,9 @@
     "start": "ags run app.tsx",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "bash scripts/typecheck.sh",
     "check": "bun run format:check && bun run typecheck",
-    "changelog": "bunx changie new",
+    "changelog": "bash .agents/skills/changie/scripts/changie-new.sh",
     "release": "bash scripts/release.sh"
   },
   "dependencies": {

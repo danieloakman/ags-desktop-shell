@@ -25,6 +25,9 @@ jobs:
           nix fmt flake.nix nix/package.nix nix/home-manager.nix
           git diff --exit-code
 
+      - name: Typecheck
+        run: nix develop -c bash -lc 'bun install --frozen-lockfile && bun run types && bun run typecheck'
+
   js:
     runs-on: ubuntu-latest
     steps:
