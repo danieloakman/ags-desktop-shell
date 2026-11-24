@@ -5,12 +5,49 @@ import { Restart, Shutdown, Suspend } from './System';
 import Bluetooth, { BluetoothConnection } from './Bluetooth';
 import { toggleWindow, WINDOW_NAME } from '../utils/window';
 import Modal from '../components/Modal';
-import Uptime from './Uptime';
+import { uptime } from './Uptime';
 import { classes, SPACING } from '../utils/styles';
 import { Hr } from '@/components/Separators';
 import Swaync from './Swaync';
 import Brightness from './Brightness';
 import { BatteryInfo } from './Battery';
+import { createBinding, createComputed } from 'ags';
+import Network from 'gi://AstalNetwork';
+import Pango from 'gi://Pango';
+
+const network = Network.get_default();
+const wifi = createBinding(network, 'wifi');
+const primary = createBinding(network, 'primary');
+
+const heroNetworkLabel = createComputed([wifi, primary], (w, p) => {
+  if (p === Network.Primary.WIFI) return w?.ssid || 'Wi-Fi';
+  if (p === Network.Primary.WIRED) return 'Wired';
+  if (w?.enabled) return 'Not connected';
+  return 'Offline';
+});
+
+function ControlCenterHero() {
+  return (
+    <box orientation={Gtk.Orientation.VERTICAL} spacing={2} valign={Gtk.Align.CENTER}>
+      <box spacing={SPACING} valign={Gtk.Align.CENTER}>
+        <BatteryInfo showPercentage />
+        <box spacing={SPACING} valign={Gtk.Align.CENTER}>
+          <InternetConnection />
+          <label
+            label={heroNetworkLabel}
+            ellipsize={Pango.EllipsizeMode.END}
+            maxWidthChars={18}
+          />
+        </box>
+      </box>
+      <label
+        cssClasses={classes('opacity-70', 'font-size-sm')}
+        halign={Gtk.Align.START}
+        label={uptime(([hours, minutes]) => `${hours}h ${minutes}m up`)}
+      />
+    </box>
+  );
+}
 
 export default function ControlCenter() {
   return (
@@ -22,7 +59,6 @@ export default function ControlCenter() {
       margin_top={20}
       margin_end={20}
       width={400}
-      height={500}
       opacity={0.9}
     >
       <box
@@ -31,9 +67,8 @@ export default function ControlCenter() {
         spacing={12}
       >
         <centerbox orientation={Gtk.Orientation.HORIZONTAL}>
-          <box $type="start" spacing={SPACING} valign={Gtk.Align.CENTER}>
-            <Uptime />
-            <BatteryInfo showPercentage />
+          <box $type="start" valign={Gtk.Align.CENTER}>
+            <ControlCenterHero />
           </box>
           <box $type="end" spacing={SPACING} valign={Gtk.Align.CENTER}>
             <Suspend />
@@ -46,9 +81,8 @@ export default function ControlCenter() {
 
         <Volume />
         <Brightness />
-        {/* <Internet /> */}
+        <Internet />
         <Bluetooth />
-        {/* <NotificationsList /> */}
       </box>
     </Modal>
   );

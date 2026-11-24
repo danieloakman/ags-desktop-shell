@@ -21,7 +21,7 @@ Screenshots live under [`assets/screenshots/`](assets/screenshots/) (curated bef
 ## Features
 
 - **Status bar** — workspaces, clock, tray, volume / Bluetooth / network / battery indicators
-- **Control center** — volume, brightness, Bluetooth, power actions, uptime
+- **Control center** — volume, brightness, Wi‑Fi, Bluetooth, power actions
 - **App launcher** — fuzzy application search
 - **Password search** — fuzzy search over a local [`pass`](https://www.passwordstore.org/) store
 - **Touch helpers** — on-screen keyboard and orientation controls when a touch device is present
@@ -61,7 +61,7 @@ nix develop            # bun, ags, entr, changie, formatters
 }
 ```
 
-Options live under `programs.ags-desktop-shell` (`enable`, `package`, `passwordStoreDir`). Enabling imports AGS’s Home Manager module, installs Astal libs (hyprland, wireplumber, network, notifd, mpris, apps, tray, cava), puts the package on `PATH`, and sets `PASSWORD_STORE_DIR`.
+Options live under `programs.ags-desktop-shell` (`enable`, `package`, `passwordStoreDir`). Enabling imports AGS’s Home Manager module, installs Astal libs (hyprland, wireplumber, network, bluetooth, notifd, mpris, apps, tray, cava — see [`nix/astal-extra.nix`](nix/astal-extra.nix)), puts the package on `PATH`, and sets `PASSWORD_STORE_DIR`.
 
 Start from your compositor (no systemd user unit in v1):
 

@@ -38,16 +38,7 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        astalExtra = with astal.packages.${system}; [
-          hyprland
-          wireplumber
-          network
-          notifd
-          mpris
-          apps
-          tray
-          cava
-        ];
+        astalExtra = import ./nix/astal-extra.nix { inherit astal system; };
         package = pkgs.callPackage ./nix/package.nix {
           ags = ags.packages.${system}.default;
           extraPackages = astalExtra;

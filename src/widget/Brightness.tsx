@@ -1,4 +1,4 @@
-import { Accessor, createComputed, createExternal, With } from 'ags';
+import { createExternal } from 'ags';
 import { execAsync } from 'ags/process';
 import { noop, debounce } from '@/js-utils';
 import { createExternalState } from '../utils/ags';
@@ -7,32 +7,31 @@ import Card from '@/components/Card';
 import { Gtk } from 'ags/gtk4';
 import { classes, SPACING } from '@/utils/styles';
 
-export const maxBrightness = createExternal(900, (set) => {
-  execAsync('brightnessctl max').then((stdout) => {
-    set(parseInt(stdout.trim()));
-  });
+/** Only real display backlights — ignores keyboard LEDs that brightnessctl lists first. */
+const BRIGHTNESSCTL = 'brightnessctl -c backlight';
+
+export const maxBrightness = createExternal(0, (set) => {
+  execAsync(`${BRIGHTNESSCTL} max`)
+    .then((stdout) => set(parseInt(stdout.trim(), 10) || 0))
+    .catch(() => set(0));
   return noop;
 });
 
 const [currentBrightness, setCurrentBrightness] = createExternalState<number>(0, (set) => {
   Promise.all([
-    execAsync('brightnessctl get').then((stdout) => parseInt(stdout.trim())),
-    execAsync('brightnessctl max').then((stdout) => parseInt(stdout.trim())),
+    execAsync(`${BRIGHTNESSCTL} get`).then((stdout) => parseInt(stdout.trim(), 10)),
+    execAsync(`${BRIGHTNESSCTL} max`).then((stdout) => parseInt(stdout.trim(), 10)),
   ])
     .then(([brightness, max]) => {
+      if (!max) return set(0);
       set((brightness / max) * 100);
     })
-    .catch((err) => {
-      console.error('brightness get error', err);
-    });
+    .catch(() => set(0));
   return noop;
 });
 export { currentBrightness as brightness };
 
-const canControlBrightness = maxBrightness((max) => {
-  const min = Math.ceil(max * 0.05);
-  return min !== max;
-});
+export const canControlBrightness = maxBrightness((max) => max > 1);
 
 export const setBrightness = debounce(async (value: number) => {
   await execAsync(`swayosd-client --brightness ${value}`).catch((err) =>
@@ -67,33 +66,5 @@ export default function Brightness() {
         hexpand
       />
     </Card>
-  );
-}
-
-function BrightnessCtrl({
-  width = 150,
-  max,
-  min,
-  step,
-}: {
-  width?: number | Accessor<number>;
-  min?: number | Accessor<number>;
-  max?: number | Accessor<number>;
-  step?: number | Accessor<number>;
-}) {
-  return (
-    <slider
-      value={currentBrightness}
-      width_request={width}
-      min={min}
-      max={max}
-      step={step}
-      onChangeValue={({ value }) => {
-        execAsync(`brightnessctl set ${value}`).catch((err) =>
-          console.error('Failed to set brightness', err),
-        );
-        setCurrentBrightness(value);
-      }}
-    />
   );
 }
