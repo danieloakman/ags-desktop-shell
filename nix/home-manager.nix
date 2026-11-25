@@ -51,16 +51,7 @@ in
     programs.ags = {
       enable = true;
       configDir = "${cfg.package}/share/ags-desktop-shell";
-      extraPackages = with astal.packages.${system}; [
-        hyprland
-        wireplumber
-        network
-        notifd
-        mpris
-        apps
-        tray
-        cava
-      ];
+      extraPackages = import ./astal-extra.nix { inherit astal system; };
     };
 
     home.packages = [ wrapped ];

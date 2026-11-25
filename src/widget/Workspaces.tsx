@@ -1,5 +1,5 @@
 import { createBinding, createComputed, For, With } from 'ags';
-import { classes } from '../utils/styles';
+import { classes, SPACING } from '../utils/styles';
 import { workspaces, focusedWorkspace, focusedClient, focusWorkspace } from '../utils/hyprland';
 import NativeIcon, { lookupNativeIcon } from '@/components/NativeIcon';
 import { Gtk } from 'ags/gtk4';
@@ -28,7 +28,7 @@ export default function Workspaces() {
               )}
               onClicked={() => focusWorkspace(workspace.get_id())}
             >
-              <box spacing={4} halign={Gtk.Align.CENTER}>
+              <box spacing={SPACING} halign={Gtk.Align.CENTER}>
                 <label label={name} />
                 <For
                   each={clients.as((arr) =>

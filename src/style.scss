@@ -15,9 +15,9 @@ $font-size: 14px;
   font-size: $font-size;
 }
 
+// Alias of bg-selected; prefer bg-selected + color-* utilities.
 .selected {
   background-color: $selected-bg-color;
-  color: $bg-color;
 }
 
 .btn-ghost {
@@ -33,8 +33,14 @@ $font-size: 14px;
   }
 }
 
-// .circular is an already defined class for many GTK widgets, so we just want to define it here for it to be picked up in intellisense
+// Match libadwaita button.circular — AGS may not load that stylesheet, so define it here.
+button.circular,
+menubutton.circular,
 .circular {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-radius: 9999px;
 }
 .rounded-none {
   border-radius: 0px;
@@ -49,12 +55,15 @@ $font-size: 14px;
   border-radius: $rounded-full;
 }
 .rounded-l {
+  border-top-left-radius: $rounded;
+  border-bottom-left-radius: $rounded;
+}
+.rounded-r {
   border-top-right-radius: $rounded;
   border-bottom-right-radius: $rounded;
 }
-.rounded-r {
-  border-top-left-radius: $rounded;
-  border-bottom-left-radius: $rounded;
+.border-b {
+  border-bottom: 1px solid $border-color;
 }
 .rounded-t {
   border-top-left-radius: $rounded;

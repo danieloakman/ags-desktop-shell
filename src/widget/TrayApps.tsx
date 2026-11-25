@@ -1,5 +1,5 @@
-import { classes } from '@/utils/styles';
-import { For, With, createBinding, createComputed } from 'ags';
+import { classes, SPACING } from '@/utils/styles';
+import { For, createBinding, createComputed } from 'ags';
 import { Gtk } from 'ags/gtk4';
 import Tray from 'gi://AstalTray';
 
@@ -11,7 +11,12 @@ export const trayItems = createBinding(tray, 'items').as((items) =>
 
 export default function TrayApps() {
   return (
-    <box name="TrayApps" visible={trayItems((v) => v.length > 0)}>
+    <box
+      name="TrayApps"
+      spacing={SPACING}
+      visible={trayItems((v) => v.length > 0)}
+      cssClasses={classes('rounded-full', 'bg-selected')}
+    >
       <For each={trayItems}>
         {(item) => {
           const title = createBinding(item, 'title');
@@ -30,19 +35,19 @@ export default function TrayApps() {
             <menubutton
               name={title}
               tooltipText={item.get_tooltip_text() || item.get_title()}
-              cssClasses={classes('circular')}
+              cssClasses={classes('flat', 'circular', 'btn-ghost-on-bg')}
               popover={popoverMenu}
             >
-              <image iconName={iconName} gicon={gicon} />
+              <image iconName={iconName} gicon={gicon} pixelSize={16} />
             </menubutton>
           ) : (
             <button
               name={title}
               onClicked={() => item.activate(0, 0)}
-              cssClasses={classes('rounded-full', 'btn-ghost')}
+              cssClasses={classes('circular', 'btn-ghost-on-bg')}
               tooltipText={item.get_tooltip_text() || item.get_title()}
             >
-              <image iconName={iconName} gicon={gicon} />
+              <image iconName={iconName} gicon={gicon} pixelSize={16} />
             </button>
           );
         }}

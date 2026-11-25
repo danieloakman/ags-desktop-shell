@@ -8,14 +8,14 @@ import { ControlCenterButton } from './ControlCenter';
 import { WINDOW_NAME } from '@/utils/window';
 import { PasswordSearchButton } from './PasswordSearch';
 import { AppsButton } from './Apps';
-import { classes } from '@/utils/styles';
+import { classes, SPACING } from '@/utils/styles';
 import Orientation from './Orientation';
 import { Accessor, createExternal } from 'ags';
 import HorizontalRevealer from '@/components/HorizontalRevealer';
 import { noop } from '@/js-utils';
 import { hasTouchDevice } from '@/utils/hyprland';
 import Coffee from './Coffee';
-import Media from './Media';
+import TrayApps from './TrayApps';
 
 export interface BarProps {
   monitor: Gdk.Monitor | Accessor<Gdk.Monitor>;
@@ -35,7 +35,7 @@ export default function Bar({ monitor }: BarProps) {
       application={app}
     >
       <centerbox name="bar-container" cssName="centerbox">
-        <box name="start" $type="start" spacing={4}>
+        <box name="start" $type="start" spacing={SPACING}>
           <HorizontalRevealer
             visible={createExternal(false, (set) => {
               hasTouchDevice().then(set);
@@ -53,12 +53,13 @@ export default function Bar({ monitor }: BarProps) {
           {/* <Media /> */}
         </box>
 
-        <box name="center" $type="center" spacing={4}>
+        <box name="center" $type="center" spacing={SPACING}>
           <Clock />
         </box>
 
-        <box name="end" $type="end" spacing={4} halign={Gtk.Align.END}>
+        <box name="end" $type="end" spacing={SPACING} halign={Gtk.Align.END}>
           <OSMonitoring />
+          <TrayApps />
           <ControlCenterButton />
         </box>
       </centerbox>

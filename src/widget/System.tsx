@@ -1,7 +1,7 @@
 import { execAsync } from 'ags/process';
 import { Gtk } from 'ags/gtk4';
 import Icon from '../components/Icon';
-import { classes } from '../utils/styles';
+import { classes, SPACING } from '../utils/styles';
 import { notify } from '@/utils/notifications';
 import { hideAllWindows } from '@/utils/window';
 
@@ -11,14 +11,14 @@ export default function System() {
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
       tooltipText="System Options"
-      cssClasses={classes('circular')}
+      cssClasses={classes('rounded-full')}
     >
       <box halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
         <Icon name="power" />
       </box>
 
       <popover vexpand hexpand>
-        <box spacing={4} orientation={Gtk.Orientation.VERTICAL}>
+        <box spacing={SPACING} orientation={Gtk.Orientation.VERTICAL}>
           <button
             label="Shutdown"
             onClicked={async () => {
@@ -63,7 +63,7 @@ export default function System() {
 export function Shutdown() {
   return (
     <button
-      cssClasses={classes('circular')}
+      cssClasses={classes('rounded-full')}
       tooltipText="Shutdown"
       onClicked={async () => {
         hideAllWindows();
@@ -90,7 +90,7 @@ export function Shutdown() {
 export function Suspend() {
   return (
     <button
-      cssClasses={classes('circular')}
+      cssClasses={classes('rounded-full')}
       tooltipText="Suspend"
       onClicked={() =>
         execAsync('systemctl suspend').catch((err) => console.error('Failed to suspend', err))
@@ -106,7 +106,7 @@ export function Suspend() {
 export function Restart() {
   return (
     <button
-      cssClasses={classes('circular')}
+      cssClasses={classes('rounded-full')}
       tooltipText="Restart"
       onClicked={async () => {
         hideAllWindows();

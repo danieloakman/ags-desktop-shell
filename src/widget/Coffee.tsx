@@ -40,7 +40,7 @@ export default function Coffee() {
   return (
     <box name="Coffee">
       <button
-        cssClasses={hypridleEnabled((v) => classes('rounded', !v && 'bg-fg-color'))}
+        cssClasses={hypridleEnabled((v) => classes('rounded-full', !v && 'bg-fg-color'))}
         onClicked={toggleHypridle}
         tooltipText="Disable idle timeouts and keep the screen and system awake"
       >

@@ -2,7 +2,7 @@ import Wp from 'gi://AstalWp';
 import { createBinding, createComputed, For } from 'ags';
 import { execAsync } from 'ags/process';
 import Icon from '../components/Icon';
-import { classes } from '../utils/styles';
+import { classes, SPACING } from '../utils/styles';
 import { clamp, debounce } from '@/js-utils';
 import { Gtk } from 'ags/gtk4';
 import { createBooleanState } from '@/utils/ags';
@@ -41,7 +41,7 @@ export default function Volume() {
 
   return (
     <Card name="Volume" orientation={Gtk.Orientation.VERTICAL}>
-      <box spacing={4} valign={Gtk.Align.CENTER}>
+      <box spacing={SPACING} valign={Gtk.Align.CENTER}>
         <button cssClasses={classes('btn-ghost', 'rounded-full')} onClicked={toggleMute}>
           <VolumeIndicator />
         </button>
@@ -65,7 +65,7 @@ export default function Volume() {
       </box>
 
       <revealer revealChild={open}>
-        <box spacing={4} orientation={Gtk.Orientation.VERTICAL}>
+        <box spacing={SPACING} orientation={Gtk.Orientation.VERTICAL}>
           <For each={speakers}>
             {(speaker) => {
               const isDefault = createBinding(speaker, 'is_default').as((v) => !!v);
@@ -76,7 +76,7 @@ export default function Volume() {
                   cssClasses={classes('btn-ghost')}
                   widthRequest={100}
                 >
-                  <box spacing={4}>
+                  <box spacing={SPACING}>
                     <Icon name={isDefault((v) => (v ? 'check' : 'dot'))} />
                     <label label={device((v) => v?.get_description() ?? '')} />
                   </box>

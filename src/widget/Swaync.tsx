@@ -21,7 +21,7 @@ export default function Swaync({ visible, cssClasses = [] }: SwayncProps) {
     <button
       visible={visible}
       name="SwayNC"
-      cssClasses={classes('rounded', ...cssClasses)}
+      cssClasses={classes('rounded-full', ...cssClasses)}
       onClicked={async () => {
         hideWindow('control-center');
         await toggleSwayncPanel();

@@ -1,5 +1,6 @@
 import { createPoll } from 'ags/time';
 import Icon from '../components/Icon';
+import { SPACING } from '@/utils/styles';
 
 // Parse /proc/uptime (seconds since boot) — avoids fragile `uptime` CLI formatting
 // that differs for "1 day" vs "N days" and minutes-only uptimes (#27).
@@ -13,7 +14,7 @@ export const uptime = createPoll('', 60000, 'cat /proc/uptime').as((stdout) => {
 
 export default function Uptime() {
   return (
-    <box spacing={4}>
+    <box spacing={SPACING}>
       <Icon name="hourglass" />
       <label label={uptime(([hours, minutes]) => `${hours}h, ${minutes}m`)} />
     </box>
