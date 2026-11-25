@@ -33,8 +33,14 @@ $font-size: 14px;
   }
 }
 
-// .circular is an already defined class for many GTK widgets, so we just want to define it here for it to be picked up in intellisense
+// Match libadwaita button.circular — AGS may not load that stylesheet, so define it here.
+button.circular,
+menubutton.circular,
 .circular {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-radius: 9999px;
 }
 .rounded-none {
   border-radius: 0px;

@@ -6,7 +6,7 @@
     # Floating `nixos-unstable` can pull GTK/Pango newer than nix-ld on the
     # machine and break `ags run`. Consumers should still set
     # `inputs.nixpkgs.follows = "nixpkgs"`.
-    nixpkgs.url = "github:NixOS/nixpkgs/44a91898084f46797b5fac650c7e8c9ac38c43d4";
+    nixpkgs.url = "github:NixOS/nixpkgs/f4a03c008967841f2a0b3cb7c436fc6fc31671f6";
     flake-utils.url = "github:numtide/flake-utils";
 
     astal = {

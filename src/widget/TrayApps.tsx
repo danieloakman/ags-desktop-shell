@@ -35,19 +35,19 @@ export default function TrayApps() {
             <menubutton
               name={title}
               tooltipText={item.get_tooltip_text() || item.get_title()}
-              cssClasses={classes('rounded-full', 'btn-ghost-on-bg')}
+              cssClasses={classes('flat', 'circular', 'btn-ghost-on-bg')}
               popover={popoverMenu}
             >
-              <image iconName={iconName} gicon={gicon} />
+              <image iconName={iconName} gicon={gicon} pixelSize={16} />
             </menubutton>
           ) : (
             <button
               name={title}
               onClicked={() => item.activate(0, 0)}
-              cssClasses={classes('rounded-full', 'btn-ghost-on-bg')}
+              cssClasses={classes('circular', 'btn-ghost-on-bg')}
               tooltipText={item.get_tooltip_text() || item.get_title()}
             >
-              <image iconName={iconName} gicon={gicon} />
+              <image iconName={iconName} gicon={gicon} pixelSize={16} />
             </button>
           );
         }}
